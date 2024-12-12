@@ -2258,11 +2258,33 @@ const Form = () => {
 
       if (response.status === 200) {
         console.log('Score saved successfully:', response.data);
+ Swal.fire({
+          title: 'Successfully Completed!',
+          text: 'You have completed the test.',
+          icon: 'success',
+          confirmButtonText: 'Go to Results',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Redirect to the success page or another page
+            window.location.href = '/success'; // Change this to your desired page URL
+          }
+        });
+    
+
+
+        
       } else {
         console.error('Failed to save score:', response.data);
       }
     } catch (error) {
       console.error('Error sending score:', error);
+
+      Swal.fire({
+        title: 'Oops!',
+        text: 'Something went wrong. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     }
   }
 
@@ -2331,32 +2353,7 @@ const Form = () => {
     };
 
 
-
-    try {
-      // Call saveScore function to send the data using axios
-      await saveScore(data);
-
-      // Show SweetAlert on success
-      Swal.fire({
-        title: 'Successfully Completed!',
-        text: 'You have completed the test.',
-        icon: 'success',
-        confirmButtonText: 'Go to Results',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Redirect to the success page or another page
-          window.location.href = '/success'; // Change this to your desired page URL
-        }
-      });
-    } catch (error) {
-      // Handle errors if saveScore fails
-      Swal.fire({
-        title: 'Oops!',
-        text: 'Something went wrong. Please try again.',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
-    }
+await saveScore(data)
 
 
 
